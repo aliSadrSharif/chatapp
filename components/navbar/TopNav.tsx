@@ -2,13 +2,21 @@ import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/navbar";
 import { Button } from "@heroui/button";
 import Link from "next/link";
 import { IoLogoWechat } from "react-icons/io5";
+import NavLink from "./NavLink";
 
 export default function TopNav() {
   return (
     <Navbar
       maxWidth="xl"
       className="bg-gradient-to-r from-purple-400 to bg-purple-700"
-      classNames={{ item: ["text-xl", "text-white", "uppercase"] }}
+      classNames={{
+        item: [
+          "text-xl",
+          "text-white",
+          "uppercase",
+          "data-[active=true]:text-yellow-200",
+        ],
+      }}
     >
       <NavbarBrand as={Link} href="/">
         <IoLogoWechat size={40} className="text-gray-200" />
@@ -18,15 +26,9 @@ export default function TopNav() {
         </div>
       </NavbarBrand>
       <NavbarContent justify="center">
-        <NavbarItem as={Link} href="/members">
-          Matches
-        </NavbarItem>
-        <NavbarItem as={Link} href="/lists">
-          Lists
-        </NavbarItem>
-        <NavbarItem as={Link} href="/messages">
-          Messages
-        </NavbarItem>
+        <NavLink href="/members" label="Matches" />
+        <NavLink href="/lists" label="Lists" />
+        <NavLink href="/messages" label="Messages" />
       </NavbarContent>
       <NavbarContent justify="end">
         <Button
