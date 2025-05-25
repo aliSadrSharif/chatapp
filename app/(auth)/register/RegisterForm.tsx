@@ -8,20 +8,20 @@ import { GiPadlock } from "react-icons/gi";
 
 import { useForm } from "react-hook-form";
 
-import { loginSchema, LoginSchema } from "@/lib/schema/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { registerSchema, RegisterSchema } from "@/lib/schema/registerSchema";
 
-export default function LoginForm() {
+export default function RegisterForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
     mode: "onTouched",
   });
 
-  const onSubmit = (data: LoginSchema) => {
+  const onSubmit = (data: RegisterSchema) => {
     console.log(data);
   };
 
@@ -31,14 +31,23 @@ export default function LoginForm() {
         <div className="flex flex-col gap-2 items-center text-secondary">
           <div className="flex flex-row items-center gap-3">
             <GiPadlock size={30} />
-            <h1 className="text-3xl font-semibold">Login</h1>
+            <h1 className="text-3xl font-semibold">Register</h1>
           </div>
-          <p className="text-neutral-500">Welcome Back To ChatApp</p>
+          <p className="text-neutral-500">Welcome To ChatApp</p>
         </div>
       </CardHeader>
       <CardBody>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="space-y-4">
+            <Input
+              {...register("name")}
+              defaultValue=""
+              type="text"
+              label="Name"
+              variant="bordered"
+              isInvalid={!!errors.name}
+              errorMessage={errors.name?.message}
+            />
             <Input
               {...register("email")}
               defaultValue=""
@@ -63,7 +72,7 @@ export default function LoginForm() {
               color="secondary"
               type="submit"
             >
-              Login
+              Register
             </Button>
           </div>
         </form>
