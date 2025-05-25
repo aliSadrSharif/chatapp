@@ -3,9 +3,12 @@
 import { Card, CardBody, CardHeader } from "@heroui/card";
 import { Input } from "@heroui/input";
 import { Button } from "@heroui/button";
+
 import { GiPadlock } from "react-icons/gi";
+
 import { useForm } from "react-hook-form";
-import { required } from "zod/v4-mini";
+
+import { useEffect, useRef } from "react";
 
 export default function LoginForm() {
   const {
@@ -17,6 +20,12 @@ export default function LoginForm() {
   const onSubmit = (data: any) => {
     console.log(data);
   };
+
+  const input = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    input.current?.focus();
+  }, [input]);
 
   return (
     <Card className="w-2/5 mx-auto">
@@ -40,6 +49,7 @@ export default function LoginForm() {
               variant="bordered"
               isInvalid={!!errors.email}
               errorMessage={errors.email?.message as string}
+              ref={input}
             />
             <Input
               {...register("password", { required: "Password is required" })}
